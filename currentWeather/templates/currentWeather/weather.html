@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>FIO Weather</title>
+	</head>
+
+	<h1>FIO Weather Report for {{ currentUser }}</h1>
+
+	<body>
+		{% for location in locations %}
+			<div>
+				<h3><u>{{ location.name }}</u></h3>
+				It is currently {{ location.temperature }} and {{ location.condition }}.
+			</div>
+		{% endfor %}
+
+		<div>
+			<br>
+			<form action="{% url 'newLocation' %}" method="POST">
+				{% csrf_token %}
+				Create new entry - Enter ZIP code: <input type="text" size="10" name="zipCodeInput">
+				<input type="submit" value="Submit">
+				<input type="hidden" value={{ currentUser }} name="currentUser">
+			</form>
+
+			<a href="http://127.0.0.1:8000/login/login">Change user</a>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title>FIO Weather</title>
+	</head>
+
+	<h1>{{ currentUser }}</h1>
+
+	<body>
+		{% if flag == 1 %}
+			<p>Location already exists</p>
+		{% else %}
+			<p>New location created.</p>
+		{% endif %}
+
+		<form action="{% url 'weather' %}" method="POST" >
+    			{% csrf_token %}
+    			<input type="submit" value="Return to Report">
+			<input type="hidden" value={{ currentUser }} name="currentUser">
+		</form>
+	</body>
+</html>

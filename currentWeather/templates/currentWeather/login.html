@@ -1,0 +1,15 @@
+<html>
+	<head>
+		<title>FIO Weather</title>
+	</head>
+
+	<h1>FIO Weather Login</h1>
+
+	<body>
+		<form action="{% url 'weather' %}" method="POST" >
+    			{% csrf_token %}
+   			Enter Username: <input type="text" size="20" name="currentUser" >
+    			<input type="submit" value="Submit">
+		</form>
+	</body>
+</html>

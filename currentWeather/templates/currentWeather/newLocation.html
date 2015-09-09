@@ -8,6 +8,8 @@
 	<body>
 		{% if flag == 1 %}
 			<p>Location already exists</p>
+		{% elif flag == 2 %}
+			<p>Invalid Zip-Code input</p>
 		{% else %}
 			<p>New location created.</p>
 		{% endif %}

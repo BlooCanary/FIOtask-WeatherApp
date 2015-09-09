@@ -57,13 +57,19 @@ def newLocation(request):
             url = 'http://api.wunderground.com/api/' + key + '/geolookup/conditions/q/PA/' + zipCodeInput + '.json'
             f = urlopen(url)
             parsed_json = json.loads(f.readall().decode('utf-8'))
-            city = parsed_json['location']['city']
-            state = parsed_json['location']['state']
-            newName = city + ', ' + state
-            newTemp = parsed_json['current_observation']['temperature_string']
-            newCondition = parsed_json['current_observation']['weather']
-            newLocation = Location(user=currentUser, name=newName, zipCode=zipCodeInput, temperature=newTemp, condition=newCondition)
-            newLocation.save()
+            
+            #checks for zip code validity
+            #by checking for error key
+            if 'error' in parsed_json['response']:
+                flag = 2
+            else:
+                city = parsed_json['location']['city']
+                state = parsed_json['location']['state']
+                newName = city + ', ' + state
+                newTemp = parsed_json['current_observation']['temperature_string']
+                newCondition = parsed_json['current_observation']['weather']
+                newLocation = Location(user=currentUser, name=newName, zipCode=zipCodeInput, temperature=newTemp, condition=newCondition)
+                newLocation.save()
             f.close()
             
     return render(request, 'currentWeather/newLocation.html', {'flag' : flag, 'currentUser' : currentUser})
